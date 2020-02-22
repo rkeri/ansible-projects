@@ -1,7 +1,7 @@
 
 ---
-app_user: "pbtest"
-http_host: "bigdrip.xyz"
-http_conf: "bigdrip.xyz.conf"
-http_port: "80"
-disable_default: true
+app_user:         "root"
+http_host:        "bigdrip.xyz"
+http_conf:        "bigdrip.xyz.conf"
+http_port:        "80"
+disable_default:  true
