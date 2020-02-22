@@ -26,8 +26,9 @@
         src: "files/apache.conf.j2"
         dest: "/etc/httpd/conf/{{ http_conf }}"
 
-    - name: "Firewall rule on {{ http_port }}"
+    - name: "Firewall rule on on http for external connections"
       firewalld:
+        zone: public
         service: http
         permanent: yes
         state: enabled
