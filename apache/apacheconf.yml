@@ -35,14 +35,14 @@
 
   handlers:
     - name: restart firewall
-       service:
+      service:
        name: firewalld
        state: restarted
    - name: Reload Apache
-       service:
+     service:
        name: httpd
        state: reloaded
    - name: Restart Apache
-       service:
+     service:
        name: httpd
        state: restarted
