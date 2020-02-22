@@ -7,8 +7,8 @@
   vars_files:
     - sudopass
     - vars/default.yml
-  tasks:
 
+  tasks:
     - name:         Install httpd
       yum:          name=httpd state=latest
     - name:         Create document root
