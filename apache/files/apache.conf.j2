@@ -1,8 +1,16 @@
+<FilesMatch \.php$>
+SetHandler application/x-httpd-php
+</FilesMatch>
 <VirtualHost *:{{ http_port }}>
-    ServerAdmin webmaster@localhost
-    ServerName {{ http_host }}
-    ServerAlias www.{{ http_host }}
-    DocumentRoot /var/www/{{ http_host }}
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
+  ServerAdmin bigdrip@bigdrip.xyz
+  DocumentRoot /var/www/{{ http_host }}
+  ServerName {{ http_host }}
+  ServerAlias www.{{ http_host }}
+  Alias /matomo “/var/www/{{ http_host }}”
+<Directory /var/www/{{ http_host }}>
+  Options +FollowSymlinks
+  AllowOverride All
+</Directory>
+  ErrorLog /var/log/httpd/{{ http_host }}-error-log
+  CustomLog /var/log/httpd/{{ http_host }}-acces-log common
 </VirtualHost>
