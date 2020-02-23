@@ -27,7 +27,7 @@
         dest:       "/etc/httpd/conf/{{ http_conf }}"
     - name:         Add virtualhost to httpd.conf
       blockinfile:
-        path:       "etc/httpd/conf/httpd.conf"
+        path:       "/etc/httpd/conf/httpd.conf"
         backup:     yes
         block:      "{{ lookup('file', './files/apache.conf.j2') }}"
 
