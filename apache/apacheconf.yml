@@ -25,6 +25,12 @@
       template:
         src:        "files/apache.conf.j2"
         dest:       "/etc/httpd/conf/{{ http_conf }}"
+    - name:         Add virtualhost to httpd.conf
+        blockinfile:
+          path:     "etc/httpd/conf/httpd.conf"
+          backup:   yes
+          create:   yes
+          block:    "{{ lookup("file", "/files/apache.conf.j2") }}
 
     - name:         "Firewall rule on on http for external connections"
       firewalld:
