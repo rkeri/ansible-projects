@@ -33,12 +33,11 @@
         permanent:  yes
         state:      enabled
 
-  handlers:
-   - name:          restart firewall
+   - name:          restarting firewall
      service:
        name:        firewalld
        state:       restarted
-   - name:          Restart Apache
+   - name:          restarting apache
      service:
        name:        httpd
        state:       restarted
