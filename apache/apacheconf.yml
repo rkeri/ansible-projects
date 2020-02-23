@@ -25,12 +25,14 @@
       template:
         src:        "files/apache.conf.j2"
         dest:       "/etc/httpd/conf/{{ http_conf }}"
+    - set_fact:
+        httpd_content: "{{ lookup('template', 'files/apache.conf.j2') }}"
     - name:         Add virtualhost to httpd.conf
       blockinfile:
         path:       "/etc/httpd/conf/httpd.conf"
         backup:     yes
-#        block:      "{{ http_conf }}"
-        block:      "{{ lookup('file', '{{ http_conf }}') }}"
+        content:    {{ httpd_content }}
+        state:      present
 
     - name:         "Firewall rule on on http for external connections"
       firewalld:
