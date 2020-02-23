@@ -38,11 +38,11 @@
         permanent:  yes
         state:      enabled
 
-   - name:          restarting firewall
-     service:
-       name:        firewalld
-       state:       restarted
-   - name:          restarting apache
-     service:
-       name:        httpd
-       state:       restarted
+    - name:         restarting firewall
+      service:
+        name:       firewalld
+        state:      reloaded
+    - name:         restarting apache
+      service:
+        name:       httpd
+        state:      restarted
