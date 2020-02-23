@@ -2,50 +2,57 @@
 # Apache playbook for CentOS by rk v0.1
 ##################################################
 ---
-- hosts:            all
-  become:           true
+- hosts:                all
+  become:               true
   vars_files:
     - sudopass
     - vars/default.yml
 
   tasks:
-    - name:         Install httpd
-      yum:          name=httpd state=latest
-    - name:         Create document root
+
+    - name:             Install httpd
+      yum:              name=httpd state=latest
+
+    - name:             Create document root
       file:
-        path:       "/var/www/{{ http_host }}"
-        state:      directory
-        owner:      "{{ app_user }}"
-        mode:       '0755'
-    - name:         Copy index test page
+        path:           "/var/www/{{ http_host }}"
+        state:          directory
+        owner:          "{{ app_user }}"
+        mode:           '0755'
+
+    - name:             Copy index test page
       template:
-        src:        "files/index.html.j2"
-        dest:       "/var/www/{{ http_host }}/index.html"
-    - name:         Set up Apache virtualhost
+        src:            "files/index.html.j2"
+        dest:           "/var/www/{{ http_host }}/index.html"
+
+    - name:             Set up Apache virtualhost
       template:
-        src:        "files/apache.conf.j2"
-        dest:       "/etc/httpd/conf/{{ http_conf }}"
+        src:            "files/apache.conf.j2"
+        dest:           "/etc/httpd/conf/{{ http_conf }}"
+
     - set_fact:
-        httpd_content: "{{ lookup('template', 'files/apache.conf.j2') }}"
-    - name:         Add virtualhost to httpd.conf
+        httpd_content:  "{{ lookup('template', 'files/apache.conf.j2') }}"
+
+    - name:             Add virtualhost to httpd.conf
       blockinfile:
-        path:       "/etc/httpd/conf/httpd.conf"
-        backup:     yes
-        content:    '{{ httpd_content }}'
-        state:      present
+        path:           "/etc/httpd/conf/httpd.conf"
+        backup:         yes
+        content:        '{{ httpd_content }}'
+        state:          present
 
-    - name:         "Firewall rule on on http for external connections"
+    - name:             "Firewall rule on on http for external connections"
       firewalld:
-        zone:       public
-        service:    http
-        permanent:  yes
-        state:      enabled
+        zone:           public
+        service:        http
+        permanent:      yes
+        state:          enabled
 
-    - name:         restarting firewall
+    - name:             restarting firewall
       service:
-        name:       firewalld
-        state:      reloaded
-    - name:         restarting apache
+        name:           firewalld
+        state:          reloaded
+
+    - name:             restarting apache
       service:
-        name:       httpd
-        state:      restarted
+        name:           httpd
+        state:          restarted
