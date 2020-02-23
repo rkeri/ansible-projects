@@ -29,7 +29,8 @@
       blockinfile:
         path:       "/etc/httpd/conf/httpd.conf"
         backup:     yes
-        block:      "{{ lookup('file', './files/apache.conf.j2') }}"
+        block:      "{{ http_conf }}"
+#        block:      "{{ lookup('file', './files/apache.conf.j2') }}"
 
     - name:         "Firewall rule on on http for external connections"
       firewalld:
