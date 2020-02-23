@@ -31,7 +31,7 @@
       blockinfile:
         path:       "/etc/httpd/conf/httpd.conf"
         backup:     yes
-        content:    {{ httpd_content }}
+        content:    '{{ httpd_content }}'
         state:      present
 
     - name:         "Firewall rule on on http for external connections"
