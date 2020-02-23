@@ -14,3 +14,6 @@ vault.txt -> your vault password (ansible-vault create "yourvaultfile"):
 
 ## Wordpress
 -ToDo
+
+## RemoteDB for wordpress
+-ToDo
