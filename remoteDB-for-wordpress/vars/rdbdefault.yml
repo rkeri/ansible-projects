@@ -1,0 +1,8 @@
+
+---
+mariadb_root_pw:  "Nogger123"
+db_name:          "wpdb"
+db_user:          "wpuser"
+db_user_pw:       "Nogger123"
+db_host:          "10.156.0.25"
+disable_default:  true
