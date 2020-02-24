@@ -35,14 +35,6 @@
         msg:             "MariaDB root password was set to {{ mariadb_root_pw }}"
       when:              is_root_password_set.rc == 0
 
-    - name:              Create myapp database
-      mysql_db:
-        name:            {{ db_name }}
-        login_user:      root
-        login_password:  "{{ mariadb_root_pw }}"
-        login_host:      localhost
-        state:           present
-
     - name:              Create databse for wordpress
       mysql_db:
         name:            {{ db_name }}
