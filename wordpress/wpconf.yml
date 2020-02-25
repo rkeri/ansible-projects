@@ -15,7 +15,7 @@
     - name:        Install mariadb packages
       yum:
         name:      "{{ dbpacks }}"
-        state:     installed
+        state:     latest
       vars:
         dbpacks:
          - mariadb-client
