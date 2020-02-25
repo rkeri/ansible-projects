@@ -9,19 +9,19 @@ version 0.3
 ## Requirements
  - CentOS 7 (other distros in plan)
  - Ansible (yum install epel-release / ansible)
- - your server addresses in ansible/hosts
+ - your server addresses in ansible/hosts with ip and login credentials (e.g. ansible_host="yourhostip" ansible_user="hostuser" ansible_ssh_pass="hostpassword")
  - ssh access to your servers / clients
-
-## Apache
-Requirements:
-- sshd.conf:
-  - passwordauth = yes
-  - root privileges = yes
+ - sshd.conf:
+   - passwordauth = yes
+   - root privileges = yes
 
 To run with keypairs, set sudo ssh password, and run with the following command: sudo ansible-playbook apacheconf.yml --vault-password-file=vault.txt
 
 vault.txt -> your vault password (ansible-vault create "yourvaultfile")
- - ansible_sudo_pass: "mysudopassword"
+ - ansible_sudo_pass: "mysudopassword"   
+
+## Apache
+Installs apache with prerequisities, adds firewall rules, and a sample index.html
 
 ## Wordpress
 Installs and configures a fresh wordpress on your webserver with the prerequisities
