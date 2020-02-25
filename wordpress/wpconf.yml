@@ -26,6 +26,9 @@
         - epel-release
         - yum-utils
 
+    - name:        Install wget
+      yum:         name=wget state=latest
+
     - name:        Install release
       yum:         name=http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 
@@ -35,9 +38,6 @@
 
     - name:        Install php common modules
       yum:         name=php php-common php-opcache php-mcrypt php-cli php-gd php-curl php-mysql state=latest
-
-    - name:        Install wget
-      yum:         name=wget state=latest
 
     - name:        Get wordpress
       get_url:
@@ -49,7 +49,7 @@
         src:       /tmp/latest.tar.gz
         dest:      /tmp
 
-    - name:        Copy wordpress to www
+    - name:        Copy wordpress to www/html/
       copy:
         src:       /tmp/wordpress
         dest:      /var/www/html/
