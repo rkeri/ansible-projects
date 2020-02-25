@@ -60,7 +60,7 @@
     - name:              Create remote user for the wordpress DB
       mysql_user:
         name:            "{{ db_user }}"
-        host:            "{{ db_host }}"
+        host:            "{{ webserver_ip }}"
         password:        "{{ db_user_pw }}"
         # priv:          '{{ db_name }}.*:ALL,GRANT'
         priv:            '*.*:ALL,GRANT'
