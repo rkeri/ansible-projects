@@ -82,7 +82,7 @@
     - name:          Create wp-config from sample
       template:
         src:         "files/wp-config-sample.j2"
-        dest:        "/var/www/html/wp-config.php"
+        dest:        "/var/www/{{ http_host }}/wp-config.php"
 
     - name:          restarting apache
       service:
