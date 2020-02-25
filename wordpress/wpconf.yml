@@ -75,7 +75,8 @@
       file:
         path:        /var/www/html/wp-content/uploads
         state:       directory
-        owner:       apache:apache
+        owner:       apache
+        group:       apache
         mode:        '0755'
 
     - name:          Create wp-config from sample
