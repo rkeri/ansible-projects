@@ -37,7 +37,18 @@
         cmd:       sudo yum-config-manager --enable remi-php73
 
     - name:        Install php common modules
-      yum:         name=php php-common php-opcache php-mcrypt php-cli php-gd php-curl php-mysql state=latest
+      yum:
+        name:      "{{ phpmodules }}"
+      vars:
+        phpmodules:
+          - php
+          - php-common
+          - php-opcache
+          - php-mcrypt
+          - php-cli
+          - php-gd
+          - php-curl
+          - php-mysql
 
     - name:        Get wordpress
       get_url:
