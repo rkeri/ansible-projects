@@ -2,49 +2,50 @@
 # Wordpress playbook for CentOS by rk v0.1
 ##################################################
 ---
-- hosts:           all
-  become:          true
+- hosts:               all
+  become:              true
   vars_files:
     - vars/wpdefault.yml
 
   tasks:
 
-    - name:        Install prereq
-      yum:         name=yum-utils state=latest
+    - name:            Install prereq
+      yum:             name=yum-utils state=latest
 
-    - name:        Install mariadb packages
+    - name:            Install mariadb packages
       yum:
-        name:      "{{ dbpacks }}"
-        state:     latest
+        name:          "{{ dbpacks }}"
+        state:         present
+        update_cache:  true
       vars:
         dbpacks:
          - mariadb-client
          - mariadb-common
          - mariadb-server
 
-    - name:        Install php prereq
+    - name:            Install php prereq
       yum:
-        name:      "{{ phppacks }}"
-        state:     installed
+        name:          "{{ phppacks }}"
+        state:         installed
       vars:
         phppacks:
         - epel-release
         - yum-utils
 
-    - name:        Install wget
-      yum:         name=wget state=latest
+    - name:            Install wget
+      yum:             name=wget state=latest
 
-    - name:        Install release
-      yum:         name=http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    - name:            Install release
+      yum:             name=http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 
-    - name:        Configure php
+    - name:            Configure php
       shell:
-        cmd:       sudo yum-config-manager --enable remi-php73
+        cmd:           sudo yum-config-manager --enable remi-php73
 
-    - name:        Install php common modules
+    - name:            Install php common modules
       yum:
-        name:      "{{ phpmodules }}"
-        state:     installed
+        name:          "{{ phpmodules }}"
+        state:         installed
       vars:
         phpmodules:
           - php
@@ -56,28 +57,28 @@
           - php-curl
           - php-mysql
 
-    - name:        Get wordpress
+    - name:            Get wordpress
       get_url:
-        url:       http://wordpress.org/latest.tar.gz
-        dest:      /tmp/latest.tar.gz
+        url:           http://wordpress.org/latest.tar.gz
+        dest:          /tmp/latest.tar.gz
 
-    - name:        Extract wordpress
+    - name:            Extract wordpress
       unarchive:
-        src:       /tmp/latest.tar.gz
-        dest:      /tmp
+        src:           /tmp/latest.tar.gz
+        dest:          /tmp
 
-    - name:        Copy wordpress to www/html/
+    - name:            Copy wordpress to www/html/
       copy:
-        src:       /tmp/wordpress
-        dest:      /var/www/html/
+        src:           /tmp/wordpress
+        dest:          /var/www/html/
 
-    - name:        Create wp upload Directory
+    - name:            Create wp upload Directory
       file:
-        path:      /var/www/html/wp-content/uploads
-        owner:     apache:apache
-        mode:      '0755'
+        path:          /var/www/html/wp-content/uploads
+        owner:         apache:apache
+        mode:          '0755'
 
-    - name:        Create wp-config from sample
+    - name:            Create wp-config from sample
       template:
-        src:       "files/wp-config-sample.j2"
-        dest:      "/var/www/html/wp-config.php"
+        src:           "files/wp-config-sample.j2"
+        dest:          "/var/www/html/wp-config.php"
