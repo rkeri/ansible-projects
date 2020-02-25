@@ -73,7 +73,7 @@
 
     - name:          Create wp upload Directory
       file:
-        path:        /var/www/html/wp-content/uploads
+        path:        /var/www/{{ http_host }}/wp-content/uploads
         state:       directory
         owner:       apache
         group:       apache
