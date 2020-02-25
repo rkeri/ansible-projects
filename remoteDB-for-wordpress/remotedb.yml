@@ -9,12 +9,13 @@
 
   tasks:
 
-    - name:              Install mariadb packages
+    - name:              Install prereq
       yum:
         name:            "{{ dbpacks }}"
       vars:
         dbpacks:
          - mariadb-server
+         - MySQL-python
 
     - name:              Start MariaDB
       service:           name=mariadb state=started
