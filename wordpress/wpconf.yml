@@ -67,8 +67,8 @@
 
     - name:          Copy wordpress to www/html/
       copy:
-        src:         /tmp/wordpress
-        dest:        /var/www/html/
+        src:         /tmp/wordpress/
+        dest:        /var/www/html
 
     - name:          Create wp upload Directory
       file:
