@@ -47,6 +47,10 @@
         permanent:      yes
         state:          enabled
 
+    - name:          Configure Apache for external access
+      shell:
+        cmd:         setsebool -P httpd_can_network_connect 1     
+
     - name:             restarting firewall
       service:
         name:           firewalld
