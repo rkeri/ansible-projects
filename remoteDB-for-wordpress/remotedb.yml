@@ -67,3 +67,8 @@
         login_user:      root
         login_password:  "{{ mariadb_root_pw }}"
         state:           present
+
+    - name:              Restart mariadb
+      service:
+        name:           mariadb
+        state:          restarted
