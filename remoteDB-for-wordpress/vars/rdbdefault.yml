@@ -5,4 +5,5 @@ db_name:          "wpdb"
 db_user:          "wpuser"
 db_user_pw:       "Nogger123"
 webserver_ip:     "10.156.0.24"
+db_host:          "10.156.0.25"
 disable_default:  true
