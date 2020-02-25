@@ -30,14 +30,14 @@
       register:          is_root_password_set
       ignore_errors:     yes
 
-    # - name:              Set root password
-    #   mysql_user:        user=root password="{{ mariadb_root_pw }}" host=localhost
-    #   when:              is_root_password_set.rc == 0
-    #
-    # - name:              Inform user of mysql root password
-    #   debug:
-    #     msg:             "MariaDB root password was set to {{ mariadb_root_pw }}"
-    #   when:              is_root_password_set.rc == 0
+    - name:              Set root password
+      mysql_user:        user=root password="{{ mariadb_root_pw }}" host=localhost
+      when:              is_root_password_set.rc == 0
+
+    - name:              Inform user of mysql root password
+      debug:
+        msg:             "MariaDB root password was set to {{ mariadb_root_pw }}"
+      when:              is_root_password_set.rc == 0
 
     - name:              Create database for wordpress
       mysql_db:
@@ -51,7 +51,8 @@
       mysql_user:
         name:            "{{ db_user }}"
         password:        "{{ db_user_pw }}"
-        priv:            '{{ db_name }}.*:ALL,GRANT'
+        # priv:            '{{ db_name }}.*:ALL,GRANT'
+        priv:            '*.*:ALL,GRANT'
         login_user:      root
         login_password:  "{{ mariadb_root_pw }}"
         state:           present
@@ -60,7 +61,8 @@
       mysql_user:
         name:            "{{ db_user }}@{{ db_host }}"
         password:        "{{ db_user_pw }}"
-        priv:            '{{ db_name }}.*:ALL,GRANT'
+        # priv:            '{{ db_name }}.*:ALL,GRANT'
+        priv:            '*.*:ALL,GRANT'
         login_user:      root
         login_password:  "{{ mariadb_root_pw }}"
         state:           present
