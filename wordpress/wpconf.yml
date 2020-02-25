@@ -9,6 +9,9 @@
 
   tasks:
 
+    - name:        Install prereq
+      yum:         name = yum-utils, state = latest
+
     - name:        Install mariadb packages
       yum:
         name:      "{{ dbpacks }}"
