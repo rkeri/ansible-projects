@@ -15,6 +15,7 @@
     - name:        Install mariadb packages
       yum:
         name:      "{{ dbpacks }}"
+        state:     installed
       vars:
         dbpacks:
          - mariadb-client
@@ -24,6 +25,7 @@
     - name:        Install php prereq
       yum:
         name:      "{{ phppacks }}"
+        state:     installed
       vars:
         phppacks:
         - epel-release
@@ -42,6 +44,7 @@
     - name:        Install php common modules
       yum:
         name:      "{{ phpmodules }}"
+        state:     installed
       vars:
         phpmodules:
           - php
