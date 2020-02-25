@@ -65,10 +65,10 @@
         dest:        /tmp/
         remote_src:  yes
 
-    - name:          Copy wordpress to www/html/
+    - name:          Copy wordpress to www/yourhost/
       copy:
         src:         /tmp/wordpress/
-        dest:        /var/www/html
+        dest:        /var/www/{{ http_host }}
         remote_src:  yes
 
     - name:          Create wp upload Directory
