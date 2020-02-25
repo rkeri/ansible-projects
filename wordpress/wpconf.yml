@@ -62,7 +62,7 @@
     - name:            Extract wordpress
       unarchive:
         src:           /tmp/latest.tar.gz
-        dest:          /tmp
+        dest:          /tmp/
 
     - name:            Copy wordpress to www/html/
       copy:
