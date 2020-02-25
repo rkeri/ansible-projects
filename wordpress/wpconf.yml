@@ -74,6 +74,7 @@
     - name:          Create wp upload Directory
       file:
         path:        /var/www/html/wp-content/uploads
+        state:       directory
         owner:       apache:apache
         mode:        '0755'
 
