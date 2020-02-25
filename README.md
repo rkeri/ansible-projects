@@ -8,7 +8,7 @@ version 0.3
 
 ## Requirements
  - CentOS 7 (other distros in plan)
- - Ansible (yum install epel-release ansible)
+ - Ansible (yum install epel-release / ansible)
  - your server addresses in ansible/hosts
  - ssh access to your servers / clients
 
