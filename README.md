@@ -29,10 +29,10 @@ Installs and configures a fresh wordpress on your webserver with the prerequisit
 ## RemoteDB for wordpress
 Installs and configures a MariaDB server with a preferred localhost and remote user with the prerequisities
 
-## LAMP stack with Wordpress in a remote Database
+## LAMP stack with Wordpress in a remote Database (in progress)
 Basically the Apache, Wordpress, and RemoteDB playbooks combined (recommended)
 
-## LAMP stack with wordpress on localhost
+## LAMP stack with wordpress on localhost (in progress)
 Same as above, but with everything on localhost (only recommended if you have only one server)
 
 ## ToDo
