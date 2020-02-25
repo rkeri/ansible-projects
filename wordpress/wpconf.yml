@@ -37,7 +37,7 @@
 
     - name:          Configure php
       shell:
-        cmd:         sudo yum-config-manager --enable remi-php73
+        cmd:         yum-config-manager --enable remi-php73
 
     - name:          Install php common modules
       yum:
