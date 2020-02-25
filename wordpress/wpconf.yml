@@ -54,15 +54,16 @@
           - php-curl
           - php-mysql
 
-    - name:          Get wordpress
-      get_url:
-        url:         http://wordpress.org/latest.tar.gz
-        dest:        /tmp/latest.tar.gz
+    # - name:          Get wordpress
+    #   get_url:
+    #     url:         http://wordpress.org/latest.tar.gz
+    #     dest:        /tmp/latest.tar.gz
 
     - name:          Extract wordpress TEST
       unarchive:
         src:         http://wordpress.org/latest.tar.gz
         dest:        /tmp/
+        remote_src:  yes
 
     - name:          Copy wordpress to www/html/
       copy:
