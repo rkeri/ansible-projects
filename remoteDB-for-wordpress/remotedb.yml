@@ -14,8 +14,6 @@
         name:            "{{ dbpacks }}"
       vars:
         packages:
-         - mariadb-client
-         - mariadb-common
          - mariadb-server
 
     - name:              Start MariaDB
@@ -37,7 +35,7 @@
 
     - name:              Create databse for wordpress
       mysql_db:
-        name:            {{ db_name }}
+        name:            "{{ db_name }}"
         login_user:      root
         login_password:  "{{ mariadb_root_pw }}"
         login_host:      localhost
@@ -46,7 +44,7 @@
 
     - name:              Create user for the wordpress remote DB
       mysql_user:
-        name:            {{ db_user }}
+        name:            "{{ db_user }}"
         password:        "{{ db_user_pw }}"
         priv:            myapp.*:SELECT,INSERT,UPDATE,DELETE
         login_user:      root
