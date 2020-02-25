@@ -14,14 +14,13 @@
 
     - name:            Install mariadb packages
       yum:
-        name:          "{{ dbpacks }}"
+        name:          "{{ item }}"
         state:         present
         update_cache:  true
-      vars:
-        dbpacks:
-         - mariadb-client
-         - mariadb-common
-         - mariadb-server
+      with_items:
+        - mariadb-client
+        - mariadb-common
+        - mariadb-server
 
     - name:            Install php prereq
       yum:
