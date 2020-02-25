@@ -19,9 +19,8 @@
         update_cache:  true
       vars:
         dbpacks:
-         - mariadb-client
-         - mariadb-common
          - mariadb-server
+         - mariadb-client
 
     - name:            Install php prereq
       yum:
