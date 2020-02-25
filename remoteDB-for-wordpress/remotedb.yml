@@ -9,7 +9,7 @@
 
   tasks:
 
-    - name:              Install prereq
+    - name:              Install prerequisities
       yum:
         name:            "{{ dbpacks }}"
       vars:
@@ -51,7 +51,7 @@
       mysql_user:
         name:            "{{ db_user }}"
         password:        "{{ db_user_pw }}"
-        # priv:            '{{ db_name }}.*:ALL,GRANT'
+        # priv:          '{{ db_name }}.*:ALL,GRANT'
         priv:            '*.*:ALL,GRANT'
         login_user:      root
         login_password:  "{{ mariadb_root_pw }}"
@@ -61,7 +61,7 @@
       mysql_user:
         name:            "{{ db_user }}@{{ db_host }}"
         password:        "{{ db_user_pw }}"
-        # priv:            '{{ db_name }}.*:ALL,GRANT'
+        # priv:          '{{ db_name }}.*:ALL,GRANT'
         priv:            '*.*:ALL,GRANT'
         login_user:      root
         login_password:  "{{ mariadb_root_pw }}"
