@@ -21,7 +21,7 @@ vault.txt -> your vault password (ansible-vault create "yourvaultfile")
  - ansible_sudo_pass: "mysudopassword"   
 
 ## Apache
-Installs apache with prerequisities, adds firewall rules, and a sample index.html
+Installs apache with prerequisities, adds firewall rules, configurable virtualhost, and a sample index.html
 
 ## Wordpress
 Installs and configures a fresh wordpress on your webserver with the prerequisities
