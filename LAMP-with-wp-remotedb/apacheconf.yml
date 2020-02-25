@@ -1,11 +1,11 @@
 ##################################################
-# Apache playbook for CentOS by rk
+# Apache playbook for CentOS by rk v0.1
 ##################################################
 ---
 - hosts:                all
   become:               true
   vars_files:
-    - vars/default.yml
+    - vars/apachedefault.yml
 
   tasks:
 
@@ -46,9 +46,9 @@
         permanent:      yes
         state:          enabled
 
-    - name:             Configure Apache for external access
+    - name:          Configure Apache for external access
       shell:
-        cmd:            setsebool -P httpd_can_network_connect 1
+        cmd:         setsebool -P httpd_can_network_connect 1
 
     - name:             restarting firewall
       service:

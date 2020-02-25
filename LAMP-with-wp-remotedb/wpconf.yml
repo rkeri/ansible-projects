@@ -1,5 +1,5 @@
 ##################################################
-# Wordpress playbook for CentOS by rk
+# Wordpress playbook for CentOS by rk v0.1
 ##################################################
 ---
 - hosts:             all

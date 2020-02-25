@@ -1,5 +1,5 @@
 ##################################################
-# Wordpress RemoteDB playbook for CentOS by rk v0.1
+# Wordpress RemoteDB playbook for CentOS by rk
 ##################################################
 ---
 - hosts:                 all
@@ -70,5 +70,5 @@
 
     - name:              Restart mariadb
       service:
-        name:           mariadb
-        state:          restarted
+        name:            mariadb
+        state:           restarted
