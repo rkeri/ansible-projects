@@ -3,7 +3,7 @@
 ############################################
 ---
 - name:          Apache configuration
-  hosts:         {{ apache_host }}
+  hosts:         "{{ apache_host }}"
   become:        true
   vars_files:
     - vars/lampwpdbdefault.yml
@@ -64,7 +64,7 @@
   when:          "{{ install_apache == true }}"
 
 - name:          Wordpress configuration
-  hosts:         {{ wp_host }}
+  hosts:         "{{ wp_host }}"
   become:        true
   vars_files:
     - vars/lampwpdbdefault.yml
@@ -154,7 +154,7 @@
   when:          "{{ install_wp == true }}"
 
 - name:          MariaDB configuration
-  hosts:         {{ mariadb_host }}
+  hosts:         "{{ mariadb_host }}"
   become:        true
   vars_files:
     - vars/lampwpdbdefault.yml
