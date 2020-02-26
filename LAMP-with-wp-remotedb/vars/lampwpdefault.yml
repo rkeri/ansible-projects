@@ -3,6 +3,10 @@ install_apache:   true
 install_wp:       true
 install_mariadb:  true
 
+apache_host:
+wp_host:
+mariadb_host:
+
 # Apache
 
 app_user:         "root"
