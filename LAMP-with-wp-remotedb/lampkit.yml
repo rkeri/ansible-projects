@@ -61,7 +61,7 @@
         name:           httpd
         state:          restarted
 
-  when:          {{ install_apache }} = true
+  when:          "{{ install_apache }}" == "true"
 
 - name:          Wordpress configuration
   hosts:         {{ wp_host }}
@@ -151,7 +151,7 @@
         name:        httpd
         state:       restarted
 
-  when:          {{ install_wp }} = true
+  when:          "{{ install_wp }}" == "true"
 
 - name:          MariaDB configuration
   hosts:         {{ mariadb_host }}
@@ -225,4 +225,4 @@
         name:            mariadb
         state:           restarted
 
-  when:          {{ install_mariadb }} = true
+  when:          "{{ install_mariadb }}" == "true"
