@@ -1,8 +1,0 @@
-############################################
-# LAMP + WP + DB playbook for CentOS by rk #
-############################################
----
-- hosts:                all
-  become:               true
-  vars_files:
-    - vars/lampwpdbdefault.yml
