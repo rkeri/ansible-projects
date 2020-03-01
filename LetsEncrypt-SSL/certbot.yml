@@ -7,7 +7,7 @@
   tasks:
 
   - name: Upgrade System
-    yum: upgrade=dist update_cache=yes
+    yum: name=dist state=latest
   - name: Add certbot repository
     yum_repository:
      repo: 'ppa:certbot/certbot'
