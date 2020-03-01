@@ -44,10 +44,11 @@
 
   handlers:
 
-    - name: reload apache2
-      service: name=apache2 state=restarted
-
-# create the domain directory for the cert files on localhost
+    - name: reload apache
+      service: name=httpd state=restarted
+##############################################################
+# create the domain directory for the cert files on localhost#
+##############################################################
     - name: create local cert directory
       local_action:
         module: file
