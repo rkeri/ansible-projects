@@ -3,9 +3,7 @@
   become:            true
   vars_files:
     - vars/ledefault.yml
-  roles:
-    - certbot
-
+    
   tasks:
 
   - name: Get certbot
