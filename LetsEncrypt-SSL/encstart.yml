@@ -35,10 +35,8 @@
     - name: Handle certificate
       include: "{{ playbook_dir }}/encjob.yml"
       with_items:
-        - host1.com
-        - www.host1.com
-        - host2.com
-        - www.host2.com
+        - "{{ your_hostname }}"
+        - "www.{{ your_hostname }}"
       loop_control:
         loop_var: domain
 
