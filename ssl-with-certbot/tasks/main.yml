@@ -1,0 +1,7 @@
+---
+
+- include: install.yml
+  when: not letsencrypt_cert|d()
+
+- include: certificate.yml
+  when: letsencrypt_cert|d()
