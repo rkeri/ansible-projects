@@ -21,7 +21,7 @@
         - keys
 
   - name:               "Transfer script for generating a Let's Encrypt account key"
-    copy:             src=/files/generateacckey.sh dest=/tmp/scripts/ mode=0777
+    copy:               src=files/generateacckey.sh dest=/tmp/scripts/ mode=0777
 
   - name:               "Execute script for generating a Let's Encrypt account key"
     script:             /tmp/scripts/generateacckey.sh
