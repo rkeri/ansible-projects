@@ -20,6 +20,10 @@
         - csrs
         - keys
 
+  - name:               Copy & exec test scripts TEST
+    script:             files/generateacckey.sh
+
+
   - name:               "Transfer script for generating a Let's Encrypt account key"
     copy:               src=files/generateacckey.sh dest=/tmp/scripts/ mode=0777
 
@@ -36,7 +40,7 @@
     copy:               src=/files/gencsr.sh dest=/tmp/scripts/ mode=0777
 
   - name:               "Execute script for Let's Encrypt CSR"
-    command:            sh /tmp/scripts/gencsr.sh 
+    command:            sh /tmp/scripts/gencsr.sh
 
   - name:               "Begin Encryption"
     letsencrypt:
