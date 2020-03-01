@@ -1,8 +1,0 @@
-# Variables for the certbot certificate
-certbot_create_if_missing: false
-certbot_create_method: standalone
-certbot_admin_email: rkeri95@gmail.com
-certbot_create_standalone_stop_services:
-  - nginx
-apache_vhosts:
-    - {servername: "bigdrip.xyz", documentroot: "/var/www/bigdrip.xyz"}
