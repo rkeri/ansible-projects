@@ -188,7 +188,7 @@
     loop_control:
       loop_var: cert
     notify:
-      - reload apache2
+      - reload httpd
 
 
   - name: Delete old challenge file
