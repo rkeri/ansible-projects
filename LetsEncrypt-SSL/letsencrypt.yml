@@ -25,6 +25,8 @@
 
   - name:               "copy & exec script for generating Let's Encrypt private key"
     script:             files/genprivatekey.sh
+    args:
+      executable:       /bin/bash
 
   - name:               "copy & exec script for generating Let's Encrypt CSR"
     script:             files/gencsr.ssh
