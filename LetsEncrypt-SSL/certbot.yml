@@ -3,11 +3,16 @@
   become:            true
   vars_files:
     - vars/ledefault.yml
+  roles:
+    - certbot
 
   tasks:
 
-  - name: Upgrade System
-    yum: name=dist state=latest
+  - name: Get certbot
+    yum:
+      name: certbot
+      enablerepo: epel
+
   - name: Add certbot repository
     yum_repository:
      repo: 'ppa:certbot/certbot'
