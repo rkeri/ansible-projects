@@ -5,7 +5,7 @@
   become: yes
   gather_facts: True
   vars_files:
-    - vars/hostvars.yml
+    - vars/default.yml
 
   tasks:
 
