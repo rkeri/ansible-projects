@@ -33,7 +33,7 @@
 
 
     - name: Handle certificate
-      include: "{{ playbook_dir }}/letsencrypt.yml"
+      include: "{{ playbook_dir }}/encjob.yml"
       with_items:
         - host1.com
         - www.host1.com
