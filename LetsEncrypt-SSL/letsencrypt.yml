@@ -24,13 +24,19 @@
     copy:               src=files/generateacckey.sh dest=/tmp/scripts/ mode=0777
 
   - name:               "Execute script for generating a Let's Encrypt account key"
-    command:             sh /tmp/scripts/generateacckey.sh
+    command:            sh /tmp/scripts/generateacckey.sh
 
-  - name:               "copy and generate Let's Encrypt private key"
-    script:             /files/genprivatekey.sh
+  - name:               "Transfer script for generating Let's Encrypt private key"
+    copy:               src=files/genprivatekey.sh dest=/tmp/scripts/ mode=0777
 
-  - name:               "copy and Generate Let's Encrypt CSR"
-    script:             /files/gencsr.sh
+  - name:               "Execute script for Let's Encrypt private key"
+    command:            sh /tmp/scripts/genprivatekey.sh
+
+  - name:               "copy script for generating Let's Encrypt CSR"
+    copy:               src=/files/gencsr.sh dest=/tmp/scripts/ mode=0777
+
+  - name:               "Execute script for Let's Encrypt CSR"
+    command:            sh /tmp/scripts/gencsr.sh 
 
   - name:               "Begin Encryption"
     letsencrypt:
