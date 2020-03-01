@@ -1,0 +1,48 @@
+---
+
+# Let's Encrypt certificates
+- hosts: all
+  become: yes
+  gather_facts: True
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+
+    # this will delete local outdated challenge files
+    - name: Find outdated challenge files
+      local_action:
+        module: find
+        paths: "{{ playbook_dir }}/letsencrypt-challenges/"
+        recurse: no
+        file_type: file
+        age: "1h"
+      register: outdated_challenge_files
+      become: no
+      run_once: true
+
+
+    - name: Delete outdated challenge files
+      local_action:
+        module: file
+        state: absent
+        path: "{{ item.path }}"
+      with_items: "{{ outdated_challenge_files.files }}"
+      become: no
+      run_once: true
+
+
+    - name: Handle certificate
+      include: "{{ playbook_dir }}/letsencrypt.yml"
+      with_items:
+        - host1.com
+        - www.host1.com
+        - host2.com
+        - www.host2.com
+      loop_control:
+        loop_var: domain
+
+  handlers:
+
+    - name: reload apache
+      service: name=httpd state=restarted

@@ -1,0 +1,197 @@
+##############################################################
+# create the domain directory for the cert files on localhost#
+##############################################################
+  - name: create local cert directory
+    local_action:
+      module: file
+      path: "{{ letsencrypt_cert_dir }}/{{ domain }}"
+      mode: 0700
+      state: directory
+    become: no
+    run_once: true
+
+
+  - name: Create web domain directory
+    file:
+      path: "/srv/www/{{ domain }}"
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
+
+
+  - name: Create cert domain directory
+    file:
+      path: "/etc/certs/{{ domain }}"
+      state: directory
+      owner: www-data
+      group: www-data
+      mode: 0750
+
+
+  - name: Create web domain acme-challenge directory
+    file:
+      path: "/srv/www/{{ domain }}/.well-known/acme-challenge"
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
+
+
+  - name: Find outdated challenge files
+    find:
+      paths: "/srv/www/{{ domain }}/.well-known/acme-challenge"
+      recurse: no
+      file_type: file
+      age: "1h"
+    register: outdated_challenge_files
+
+
+  - name: Delete outdated challenge files
+    file:
+      state: absent
+      path: "{{ item.path }}"
+    with_items: "{{ outdated_challenge_files.files }}"
+
+
+  # generate account key, if necessary
+  - name: Find account.key
+    local_action:
+      module: stat
+      path: "{{ letsencrypt_cert_dir }}/{{ domain }}/account.key"
+    register: account_key
+    become: no
+    run_once: true
+
+
+  - name: Generate account.key
+    local_action: shell openssl genrsa 4096 > "{{ letsencrypt_cert_dir }}/{{ domain }}/account.key"
+    become: no
+    run_once: true
+    when: account_key.stat.exists == False
+
+
+  # generate domain key, if necessary
+  - name: Find domain.key
+    local_action:
+      module: stat
+      path: "{{ letsencrypt_cert_dir }}/{{ domain }}/domain.key"
+    register: domain_key
+    become: no
+    run_once: true
+
+
+  - name: Generate domain.key
+    local_action: shell openssl genrsa 4096 > "{{ letsencrypt_cert_dir }}/{{ domain }}/domain.key"
+    become: no
+    run_once: true
+    when: domain_key.stat.exists == False
+
+
+  # generate domain csr, if necessary
+  - name: Find domain.csr
+    local_action:
+      module: stat
+      path: "{{ letsencrypt_cert_dir }}/{{ domain }}/domain.csr"
+    register: domain_csr
+    become: no
+    run_once: true
+
+
+  - name: Generate domain.csr
+    local_action: shell openssl req -new -sha256 -key "{{ letsencrypt_cert_dir }}/{{ domain }}/domain.key" -subj "/CN={{ domain }}" > "{{ letsencrypt_cert_dir }}/{{ domain }}/domain.csr"
+    become: no
+    run_once: true
+    when: domain_csr.stat.exists == False
+
+
+  - name: Create challenge
+    local_action:
+      module: letsencrypt
+      account_key_src: "{{ letsencrypt_cert_dir }}/{{ domain }}/account.key"
+      csr: "{{ letsencrypt_cert_dir }}/{{ domain }}/domain.csr"
+      dest: "{{ letsencrypt_cert_dir }}/{{ domain }}/signed.crt"
+      chain_dest: "{{ letsencrypt_cert_dir }}/{{ domain }}/intermediate.pem"
+      fullchain_dest: "{{ letsencrypt_cert_dir }}/{{ domain }}/combined.pem"
+      account_email: "{{ letsencrypt_account_email }}"
+      acme_directory: "{{ letsencrypt_acme_directory }}"
+      acme_version: "{{ letsencrypt_acme_version }}"
+      challenge: "{{ letsencrypt_challenge }}"
+      #agreement: "{{ letsencrypt_agreement }}"
+      remaining_days: "{{ letsencrypt_remaining_days }}"
+    become: no
+    run_once: true
+    register: create_challenge
+
+
+  - block:
+
+    - name: Create challenge file
+      local_action:
+        module: copy
+        content: "{{ create_challenge.challenge_data[domain]['http-01']['resource_value'] }}"
+        dest: "{{ playbook_dir }}/letsencrypt-challenges/{{ create_challenge.challenge_data[domain]['http-01']['resource'] | basename }}"
+      become: no
+      run_once: true
+      register: create_challenge_files
+
+
+    - name: Copy all challenge files to webserver
+      copy:
+        src: "{{ playbook_dir }}/letsencrypt-challenges/{{ challenge | basename }}"
+        dest: "/srv/www/{{ domain }}/.well-known/acme-challenge/{{ challenge | basename }}"
+        owner: www-data
+        group: www-data
+        mode: 0555
+      with_fileglob:
+        - "{{ playbook_dir }}/letsencrypt-challenges/*"
+      loop_control:
+        loop_var: challenge
+      register: challenges_copied
+
+
+    - name: Create certificate
+      local_action:
+        module: letsencrypt
+        account_key_src: "{{ letsencrypt_cert_dir }}/{{ domain }}/account.key"
+        csr: "{{ letsencrypt_cert_dir }}/{{ domain }}/domain.csr"
+        dest: "{{ letsencrypt_cert_dir }}/{{ domain }}/signed.crt"
+        chain_dest: "{{ letsencrypt_cert_dir }}/{{ domain }}/intermediate.pem"
+        fullchain_dest: "{{ letsencrypt_cert_dir }}/{{ domain }}/combined.pem"
+        account_email: "{{ letsencrypt_account_email }}"
+        acme_directory: "{{ letsencrypt_acme_directory }}"
+        acme_version: "{{ letsencrypt_acme_version }}"
+        challenge: "{{ letsencrypt_challenge }}"
+        #agreement: "{{ letsencrypt_agreement }}"
+        remaining_days: "{{ letsencrypt_remaining_days }}"
+        data: "{{ create_challenge }}"
+      become: no
+      run_once: true
+      when: create_challenge is changed
+      register: verify_challenge
+
+    when: create_challenge is changed
+
+
+  - name: Copy all cert files to webserver
+    copy:
+      src: "{{ letsencrypt_cert_dir }}/{{ domain }}/{{ cert }}"
+      dest: "/etc/certs/{{ domain }}/{{ cert }}"
+      owner: root
+      group: root
+      mode: 0555
+    with_items:
+      - combined.pem
+      - domain.key
+      - intermediate.pem
+      - signed.crt
+    loop_control:
+      loop_var: cert
+    notify:
+      - reload apache2
+
+
+  - name: Delete old challenge file
+    file:
+      state: absent
+      path: "/srv/www/{{ domain }}/.well-known/acme-challenge/{{ create_challenge.challenge_data[domain]['http-01']['resource'] | basename }}"
