@@ -24,9 +24,9 @@
     file:
       path:               "/etc/certs/{{ domain }}"
       state:              directory
-      owner:              www-data
-      group:              www-data
-      mode:               0750
+      owner:              root
+      group:              root
+      mode:               0755
 
 
   - name:                 Create web domain acme-challenge directory
