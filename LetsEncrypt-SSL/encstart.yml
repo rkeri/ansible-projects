@@ -2,7 +2,7 @@
 
 # Let's Encrypt certificates
 - hosts:             all
-  become:            yes
+  become:            true
   gather_facts:      True
   vars_files:
     - vars/default.yml
