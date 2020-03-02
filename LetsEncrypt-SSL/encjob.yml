@@ -5,7 +5,7 @@
     local_action:
       module:             file
       path:               "{{ letsencrypt_cert_dir }}/{{ domain }}"
-      mode:               0700
+      mode:               0755
       state:              directory
     become:               no
     run_once:             true
