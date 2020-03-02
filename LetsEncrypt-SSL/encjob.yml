@@ -107,7 +107,7 @@
 
   - name:                 Create challenge
     local_action:
-      module:             letsencrypt
+      module:             acme_certificate
       account_key_src:    "{{ letsencrypt_cert_dir }}/{{ domain }}/account.key"
       csr:                "{{ letsencrypt_cert_dir }}/{{ domain }}/domain.csr"
       dest:               "{{ letsencrypt_cert_dir }}/{{ domain }}/signed.crt"
@@ -152,7 +152,7 @@
 
     - name:               Create certificate
       local_action:
-        module:           letsencrypt
+        module:           acme_certificate
         account_key_src:  "{{ letsencrypt_cert_dir }}/{{ domain }}/account.key"
         csr:              "{{ letsencrypt_cert_dir }}/{{ domain }}/domain.csr"
         dest:             "{{ letsencrypt_cert_dir }}/{{ domain }}/signed.crt"
