@@ -1,4 +1,28 @@
 ---
-  - include: ssl.yml
-  - include: cb-dns.yml
-  
+- hosts:            all
+  become:           true
+  vars_files:
+#    - vars/wpdefault.yml
+
+  tasks:
+
+    - name:         Install prereq
+      yum:          name=yum-utils state=latest
+
+    - name:         Enable optional channel
+      command:      "yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional"
+
+    - name:         Install Certbot for apache
+      yum:
+        name:       "{{ certpacks }}"
+        state:      latest
+      vars:
+        certpacks:
+         - certbot
+         - python2-certbot-apache
+
+    - name:         Get certificates
+      command:      "certbot certonly --apache"
+
+    - name:        Set up autorenewal
+      command:     "echo "0 0,12 * * * root python -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew -q" | sudo tee -a /etc/crontab > /dev/null"
