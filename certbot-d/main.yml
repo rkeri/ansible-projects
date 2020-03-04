@@ -2,7 +2,7 @@
 - hosts:            all
   become:           true
   vars_files:
-    - scripts/autorenew.sh
+#    - scripts/autorenew.sh
 
   tasks:
 
