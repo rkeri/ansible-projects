@@ -3,10 +3,10 @@
 ##########################
 certbot_create_if_missing: false
 certbot_create_method: standalone
-certbot_admin_email: youremailid
+certbot_admin_email: bigdrip@bigdrip.xyz
 
 certbot_stop_services:
   - nginx
 apache_vhosts:
-    - {servername: "abcyourdomain.com", documentroot: "/var/www/abcyourdomain.com"}
-    - {servername: "abcyourdomain1.com", documentroot: "/var/www/abcyourdomain1.com"}
+    - {servername: "bigdrip.xyz", documentroot: "/var/www/bigdrip.xyz"}
+#    - {servername: "abcyourdomain1.com", documentroot: "/var/www/abcyourdomain1.com"}
