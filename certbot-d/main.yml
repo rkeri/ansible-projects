@@ -33,20 +33,20 @@
         state:      stopped
       vars:
         services:
-         - "{{ certbot_stop_services }}"
+         - nginx
 
     - name:         Get certificates IF it doesn't exist
       shell:        "certbot certonly --standalone --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ item.item.servername }}"
       with_items:   "{{ letsencrypt_cert.results }}"
       when:         item.stat.exists == False
 
-    - name: Start services IF needed
+    - name:         Start services IF needed
       service:
         name:       "{{ services }}"
         state:      started
       vars:
         services:
-      with_items: "{{ certbot_stop_services }}"
+         - nginx
 
     - name:         Set up autorenewal
       script:       scripts/autorenew.sh
