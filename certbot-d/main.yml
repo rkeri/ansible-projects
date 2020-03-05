@@ -40,5 +40,13 @@
       with_items:   "{{ letsencrypt_cert.results }}"
       when:         item.stat.exists == False
 
+    - name: Start services IF needed
+      service:
+        name:       "{{ services }}"
+        state:      started
+      vars:
+        services:
+      with_items: "{{ certbot_stop_services }}"
+
     - name:         Set up autorenewal
       script:       scripts/autorenew.sh
