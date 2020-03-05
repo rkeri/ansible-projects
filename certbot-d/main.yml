@@ -2,7 +2,7 @@
 - hosts:            all
   become:           true
   vars_files:
-#    - scripts/autorenew.sh
+    - vars/vars.yml
 
   tasks:
 
@@ -12,7 +12,7 @@
     - name:         Enable optional channel
       command:      "yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional"
 
-    - name:         Install Certbot for apache
+    - name:         Install Certbot apache package
       yum:
         name:       "{{ certpacks }}"
         state:      latest
@@ -21,8 +21,24 @@
          - certbot
          - python2-certbot-apache
 
-    - name:         Get certificates
-      command:      "certbot certonly --apache"
+    - name:         Check if certificate already exists.
+      stat:
+        path:       /etc/letsencrypt/live/{{ item.servername }}/cert.pem
+      register:     letsencrypt_cert
+      with_items:   "{{ apache_vhosts }}"
+
+    - name:         Stop services to allow certbot to generate a cert IF needed
+      service:
+        name:       "{{ services }}"
+        state:      stopped
+      vars:
+        services:
+         - "{{ certbot_stop_services }}"
+
+    - name:         Get certificates IF it doesn't exist
+      shell:        "certbot certonly --standalone --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ item.item.servername }}"
+      with_items:   "{{ letsencrypt_cert.results }}"
+      when:         item.stat.exists == False
 
     - name:         Set up autorenewal
       script:       scripts/autorenew.sh
