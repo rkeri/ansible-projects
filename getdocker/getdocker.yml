@@ -40,9 +40,9 @@
 
     - name:              Set up stable repo
       yum_repository:
-        name:            docker-ce
+        name:            docker-ce.repo
         description:     centos docker repo
-        baseurl:         https://download.docker.com/linux/centos/docker-ce.repo
+        baseurl:         https://download.docker.com/linux/centos/
         gpgcheck:        no
 
     - name:              Install docker engine
