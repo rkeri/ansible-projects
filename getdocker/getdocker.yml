@@ -66,4 +66,7 @@
         state:           started
 
     - name:              Verify if docker is installed correctly
-      docker:            hello-world
+      docker_container:
+        name:            hello-world
+        image:           hello-world:latest
+        state:           started
