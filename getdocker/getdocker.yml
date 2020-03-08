@@ -43,6 +43,7 @@
         name:            docker-ce.repo
         description:     centos docker repo
         baseurl:         https://download.docker.com/linux/centos/
+        enabled:         yes
         gpgcheck:        no
 
     - name:              Install docker engine
