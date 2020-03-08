@@ -34,6 +34,10 @@
           - device-mapper-persistent-data
           - lvm2
 
+    - name:              Clear yum cache
+      command:
+        cmd:             yum clean all | sudo rm -r /var/cache/yum
+
     - name:              Set up stable repo
       yum_repository:
         name:            docker-ce
