@@ -39,6 +39,7 @@
         name:            docker-ce
         description:     centos docker repo
         baseurl:         https://download.docker.com/linux/centos/docker-ce.repo
+        gpgcheck:        no
 
     - name:              Install docker engine
       yum:
