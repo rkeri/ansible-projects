@@ -35,8 +35,8 @@
           - lvm2
 
     - name:              Clear yum cache
-      command:           yum clean all
-        # cmd:             yum clean all | sudo rm -r /var/cache/yum
+      shell:
+        cmd:             yum clean all | sudo rm -r /var/cache/yum
 
     - name:              Set up stable repo
       yum_repository:
