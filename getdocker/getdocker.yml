@@ -42,7 +42,7 @@
 
     - name:              Install docker engine
       yum:
-        name:            {{ dockerinstall }}
+        name:            "{{ dockerinstall }}"
         state:           installed
       vars:
         dockerinstall:
@@ -62,4 +62,3 @@
         name:            hello-world
         image:           hello-world
         state:           started
-        
