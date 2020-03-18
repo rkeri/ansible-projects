@@ -1,0 +1,14 @@
+---
+tasks:
+
+   - include:  playbook.yml
+       hosts:  "test1"
+       myvar:  "ok"
+
+   - include:  playbook.yml
+       hosts:  "test2"
+       myvar:  "ko"
+
+   - include:  playbook.yml
+       hosts:  "test2"
+       myvar:  "ko"
