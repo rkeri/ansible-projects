@@ -178,7 +178,7 @@
         state:          reloaded
 
     - name:             "start OTRS daemon"
-      command:          "su - otrs -c "/opt/otrs/bin/otrs.Daemon.pl start""
+      command:          su - otrs -c "/opt/otrs/bin/otrs.Daemon.pl start"
 
     - name:             "activate OTRS cronjob"
-      command:          "su - otrs -c "/opt/otrs/bin/Cron.sh start""
+      command:          su - otrs -c "/opt/otrs/bin/Cron.sh start"
