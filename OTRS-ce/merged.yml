@@ -59,7 +59,7 @@
         msg:             "MariaDB root password was set to {{ mariadb_root_pw }}"
       when:              is_root_password_set.rc == 0
 
-    - name:              Create database for wordpress
+    - name:              Create database
       mysql_db:
         name:            "{{ db_name }}"
         login_user:      root
@@ -67,7 +67,7 @@
         login_host:      localhost
         state:           present
 
-    - name:              Create local user for the wordpress DB
+    - name:              Create local user for the database
       mysql_user:
         name:            "{{ db_user }}"
         password:        "{{ db_user_pw }}"
@@ -77,7 +77,7 @@
         login_password:  "{{ mariadb_root_pw }}"
         state:           present
 
-    - name:              Create remote user for the wordpress DB
+    - name:              Create remote user for the database
       mysql_user:
         name:            "{{ db_user }}"
         host:            "{{ webserver_ip }}"
