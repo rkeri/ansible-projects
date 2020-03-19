@@ -2,13 +2,10 @@
 tasks:
 
    - include:  playbook.yml
-       hosts:  "test1"
-       myvar:  "ok"
+       hosts:  all
 
    - include:  playbook.yml
-       hosts:  "test2"
-       myvar:  "ko"
+       hosts:  all
 
    - include:  playbook.yml
-       hosts:  "test2"
-       myvar:  "ko"
+       hosts:  all

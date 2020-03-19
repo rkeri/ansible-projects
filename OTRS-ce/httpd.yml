@@ -1,5 +1,5 @@
 - name:           httpd install
-  hosts:          "{{ hosts }}"
+  hosts:          all
   gather_facts:   true
   become:         true
 
