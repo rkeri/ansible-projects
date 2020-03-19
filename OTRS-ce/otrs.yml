@@ -1,0 +1,73 @@
+- name:          Install OTRS
+  hosts:         "{{ hosts }}"
+  gather_facts:  true
+  become:        true
+
+  tasks:
+
+    - name:      "Install prereq (epel, wget)"
+      yum:
+        name:    "{{ prereq }}"
+        state:   latest
+      vars:
+        prereq:
+         - epel-release
+         - wget
+
+    - name:      "Install perl modules"
+      command:   "yum install bash-completion "perl(Archive::Zip)" "perl(Crypt::SSLeay)" "perl(IO::Socket::SSL)" "perl(LWP::UserAgent)" "perl(Net::DNS)" "perl(Net::LDAP)" "perl(Template)" "perl(XML::LibXML)" "perl(XML::LibXSLT)" "perl(XML::Parser)" "perl(YAML::XS)" "perl(YAML::XS)" "perl(Authen::NTLM)" "perl(Mail::IMAPClient)" "perl(JSON::XS)" "perl(Encode::HanExtra)"  "perl(DBD::Pg)" "perl(Crypt::Eksblowfish::Bcrypt)" perl-core procmail -y"
+
+    - name:      "Download & install OTRS distro"
+      yum:       name=http://ftp.otrs.org/pub/otrs//RPMS/rhel/7/otrs-6.0.26-01.noarch.rpm
+
+    # - name:    "Download OTRS distro"
+    #   get_url:
+    #     url:   http://ftp.otrs.org/pub/otrs//RPMS/rhel/7/otrs-6.0.26-01.noarch.rpm
+    #     dest:  /tmp/otrs-6.0.26-01.noarch.rpm
+    #     mode:  '0440'
+    #
+    # - name:    "Install OTRS"
+    #   yum:
+    #      name: /tmp/otrs-6.0.26-01.noarch.rpm
+    #      state: present
+
+    - name:      "Check missing modules"
+      command:   "/opt/otrs/bin/otrs.CheckModules.pl"
+
+    - name:      "Copy OTRS default config file & add db settings"
+      template:
+        src:            "files/config.pm.j2"
+        dest:           "/opt/otrs/Kernel/Config.pm"
+
+    - set_fact:
+        mysql_otrs_content:  "{{ lookup('template', 'files/startup-mysql.j2') }}"
+
+    - name:             "Enable mySQL on apache2-perl-startup.pl"
+      blockinfile:
+        path:           "/opt/otrs/scripts/apache2-perl-startup.pl"
+        backup:         yes
+        content:        '{{ mysql_otrs_content }}'
+        state:          present
+
+    - name:             "Restart httpd"
+      service:
+        name:           httpd
+        state:          restarted
+
+    - name:             "Add firewall rule on http for external connections"
+      firewalld:
+        zone:           public
+        service:        http
+        permanent:      yes
+        state:          enabled
+
+    - name:             "reload firewall"
+      service:
+        name:           firewalld
+        state:          reloaded
+
+    - name:             "start OTRS daemon"
+      command:          "su - otrs -c "/opt/otrs/bin/otrs.Daemon.pl start""
+
+    - name:             "activate OTRS cronjob"
+      command:          "su - otrs -c "/opt/otrs/bin/Cron.sh start""
