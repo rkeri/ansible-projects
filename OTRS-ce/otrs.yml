@@ -33,3 +33,41 @@
 
     - name:      "Check missing modules"
       command:   "/opt/otrs/bin/otrs.CheckModules.pl"
+
+    - name:      "Copy OTRS default config file & add db settings"
+      template:
+        src:            "files/config.pm.j2"
+        dest:           "/opt/otrs/Kernel/Config.pm"
+
+    - set_fact:
+        mysql_otrs_content:  "{{ lookup('template', 'files/startup-mysql.j2') }}"
+
+    - name:             "Enable mySQL on apache2-perl-startup.pl"
+      blockinfile:
+        path:           "/opt/otrs/scripts/apache2-perl-startup.pl"
+        backup:         yes
+        content:        '{{ mysql_otrs_content }}'
+        state:          present
+
+    - name:             "Restart httpd"
+      service:
+        name:           httpd
+        state:          restarted
+
+    - name:             "Add firewall rule on http for external connections"
+      firewalld:
+        zone:           public
+        service:        http
+        permanent:      yes
+        state:          enabled
+
+    - name:             "reload firewall"
+      service:
+        name:           firewalld
+        state:          reloaded
+
+    - name:             "start OTRS daemon"
+      command:          "su - otrs -c "/opt/otrs/bin/otrs.Daemon.pl start""
+
+    - name:             "activate OTRS cronjob"
+      command:          "su - otrs -c "/opt/otrs/bin/Cron.sh start""
