@@ -1,11 +1,9 @@
 ---
-tasks:
+- hosts:  all
+  tasks:
 
    - include:  httpd.yml
-       hosts:  all
 
    - include:  mariadb.yml
-       hosts:  all
 
    - include:  otrs.yml
-       hosts:  all
