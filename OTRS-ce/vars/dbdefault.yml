@@ -5,5 +5,5 @@ db_name:          "otrs_db"
 db_user:          "otrs"
 db_user_pw:       "Nogger123"
 webserver_ip:     "localhost"
-db_host:          "localhost"
+db_host:          "127.0.0.1"
 disable_default:  true
