@@ -1,11 +1,11 @@
 ---
 tasks:
 
-   - include:  playbook.yml
+   - include:  httpd.yml
        hosts:  all
 
-   - include:  playbook.yml
+   - include:  mariadb.yml
        hosts:  all
 
-   - include:  playbook.yml
+   - include:  otrs.yml
        hosts:  all
