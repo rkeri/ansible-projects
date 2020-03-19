@@ -27,26 +27,23 @@
       register:     letsencrypt_cert
       with_items:   "{{ apache_vhosts }}"
 
-    # - name:         Stop services to allow certbot to generate a cert IF needed
-    #   service:
-    #     name:       "{{ services }}"
-    #     state:      stopped
-    #   vars:
-    #     services:
-    #      - nginx
+    - name:         Stop selected services for cert generation
+      service:
+        name:       "{{ item }}"
+        state:      stopped
+      with_items:
+              -  "{{ certbot_stop_services }}"
 
     - name:         Get certificates IF it doesn't exist
       shell:        "certbot certonly --standalone --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ item.item.servername }}"
       with_items:   "{{ letsencrypt_cert.results }}"
       when:         item.stat.exists == False
 
-    # - name:         Start services IF needed
-    #   service:
-    #     name:       "{{ services }}"
-    #     state:      started
-    #   vars:
-    #     services:
-    #      - nginx
+    - name:         Start previously stopped services
+      service:
+        name:       "{{ item }}"
+        state:      started
+      with_items:   "{{ certbot_stop_services }}"
 
     - name:         Set up autorenewal
       script:       scripts/autorenew.sh
