@@ -29,11 +29,11 @@ Installs and configures a fresh wordpress on your webserver with the prerequisit
 ## RemoteDB for wordpress
 Installs and configures a MariaDB server with a preferred localhost and remote user with the prerequisities
 
-## LAMP stack with Wordpress in a remote Database (in progress)
-Basically the Apache, Wordpress, and RemoteDB playbooks combined (recommended)
+## GetDocker
+Downloads / tests docker
 
-## LAMP stack with wordpress on localhost (in progress)
-Same as above, but with everything on localhost (only recommended if you have only one server)
+## certbot-d
+Generates an SSL certificate with autorenew feature using certbot
 
-## ToDo
-LetsEncrypt SSL certificate generator with autorenew feature for safe and easy https access
+## OTRS-ce
+Downloads & configures an OTRS community edition with option for remote db
