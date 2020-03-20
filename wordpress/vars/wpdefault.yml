@@ -3,6 +3,6 @@
 db_name:          "wpdb"
 db_user:          "wpuser"
 db_pw:            "Nogger123"
-db_host:          "10.156.0.25"
+db_host:          "localhost"
 disable_default:  true
 http_host:        "bigdrip.xyz"
