@@ -154,7 +154,7 @@
       unarchive:
         src:                 "files/Application.tar.gz"
         dest:                "/opt/otrs"
-# this below maybe needs some fix 
+# this below maybe needs some fix
     - name:                  Unpack otrs db backup
       unarchive:
         src:                 "files/DatabaseBackup.sql.gz"
@@ -163,10 +163,10 @@
     - name:                  "run the db restore script / psql"
       command:               "cat /otp/otrs/DatabaseBackup.sql | psql -U {{ db_user }} {{ db_user }}"
 
-    # - name:                  Run queries from SQL script
+    # - name:                Run queries from SQL script
     #   postgresql_query:
-    #     db:                  "{{ db_name }}"
-    #     path_to_script:      "/opt/otrs/DatabaseBackup.sql"
+    #     db:                "{{ db_name }}"
+    #     path_to_script:    "/opt/otrs/DatabaseBackup.sql"
     #     positional_args:
     #     - 1
 
