@@ -1,5 +1,5 @@
-- name:                      Install OTRS
-  hosts:                     "{{ hosts }}"
+---
+- hosts:                    "{{ hosts }}"
   gather_facts:              true
   become:                    true
   vars_files:
@@ -41,10 +41,10 @@
     - name:                  Start MariaDB
       service:               name=mariadb state=started
 
-    # - name:                  Set bind address for remote access
+    # - name:                Set bind address for remote access
     #   template:
-    #     src:                 "files/mariadb-bind-cnf.j2"
-    #     dest:                "/etc/my.cnf.d/server.cnf"
+    #     src:               "files/mariadb-bind-cnf.j2"
+    #     dest:              "/etc/my.cnf.d/server.cnf"
 
     - name:                  Is root password set?
       command:               mysql -u root --execute "SELECT NOW()"
