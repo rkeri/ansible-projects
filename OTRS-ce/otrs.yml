@@ -174,7 +174,7 @@
     #     - 1
 
     - name:                  "delete old otrs cache"
-      command:               'su - otrs -c "/opt/otrs/bin/Console.pl start Maint::Cache::Delete"'
+      command:               'su - otrs -c "/opt/otrs/bin/otrs.Console.pl Maint::Cache::Delete"'
 
 ##INSERT Maint::Config::Rebuild here!
 
