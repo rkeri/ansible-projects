@@ -111,10 +111,13 @@
         state:               restarted
 
     - name:                  "Install perl modules"
-      command:               'yum install bash-completion "perl(Archive::Zip)" "perl(Crypt::SSLeay)" "perl(IO::Socket::SSL)" "perl(LWP::UserAgent)" "perl(Net::DNS)" "perl(Net::LDAP)" "perl(Template)" "perl(XML::LibXML)" "perl(XML::LibXSLT)" "perl(XML::Parser)" "perl(YAML::XS)" "perl(YAML::XS)" "perl(Authen::NTLM)" "perl(Mail::IMAPClient)" "perl(JSON::XS)" "perl(Encode::HanExtra)"  "perl(DBD::Pg)" "perl(Crypt::Eksblowfish::Bcrypt)" perl-core procmail -y'
+      command:               'yum install bash-completion "perl(Archive::Zip)" "perl(Crypt::SSLeay)" "perl(DateTime)" "perl(IO::Socket::SSL)" "perl(LWP::UserAgent)" "perl(Net::DNS)" "perl(Net::LDAP)" "perl(Template)" "perl(XML::LibXML)" "perl(XML::LibXSLT)" "perl(XML::Parser)" "perl(YAML::XS)" "perl(YAML::XS)" "perl(Authen::NTLM)" "perl(Mail::IMAPClient)" "perl(JSON::XS)" "perl(Encode::HanExtra)"  "perl(DBD::Pg)" "perl(Crypt::Eksblowfish::Bcrypt)" perl-core procmail -y'
 
     # - name:                "Download & install OTRS distro"
     #   yum:                 name=http://ftp.otrs.org/pub/otrs//RPMS/rhel/7/otrs-6.0.28-01.noarch.rpm
+        # perl(DateTime) is needed by otrs-6.0.28-01.noarch
+        # perl(Template) is needed by otrs-6.0.28-01.noarch
+        # perl(XML::LibXSLT) is needed by otrs-6.0.28-01.noarch
 
     - name:                  "Download OTRS distro"
       get_url:
