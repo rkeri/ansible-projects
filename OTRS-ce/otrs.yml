@@ -13,7 +13,7 @@
         state:               latest
       vars:
         prereq:
-         - epel-release
+         # - epel-release
          - wget
 
     - name:                  "Installing httpd"
