@@ -176,6 +176,8 @@
     - name:                  "delete old otrs cache"
       command:               'su - otrs -c "/opt/otrs/bin/Console.pl start Maint::Cache::Delete"'
 
+##INSERT Maint::Config::Rebuild here!
+
     - name:                  Restart mariadb
       service:
         name:                mariadb
