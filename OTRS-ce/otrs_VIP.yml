@@ -166,8 +166,8 @@
          name:               /tmp/otrs-6.0.28-01.noarch.rpm
          state:              present
 
-    - name:                  "Check missing modules"
-      command:               "/opt/otrs/bin/otrs.CheckModules.pl"
+    # - name:                  "Check missing modules"
+    #   command:               "/opt/otrs/bin/otrs.CheckModules.pl"
 
     - name:                  "Copy OTRS default config file & add db settings"
       template:
