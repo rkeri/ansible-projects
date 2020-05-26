@@ -1,4 +1,4 @@
-# Ansible playbook collection by rkeri (CentOS 7)
+# Ansible playbook collection (CentOS 7)
 version 0.3
 
 ## Contents
