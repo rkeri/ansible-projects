@@ -166,8 +166,8 @@
          name:               /tmp/otrs-6.0.28-01.noarch.rpm
          state:              present
 
-    # - name:                  "Check missing modules"
-    #   command:               "/opt/otrs/bin/otrs.CheckModules.pl"
+    # - name:                "Check missing modules"
+    #   command:             "/opt/otrs/bin/otrs.CheckModules.pl"
 
     - name:                  "Copy OTRS default config file & add db settings"
       template:
@@ -199,8 +199,11 @@
         src:                 "files/DatabaseBackup.sql.gz"
         dest:                "/opt/otrs"
 
-    - name:                  "run the db restore script / psql"
-      command:               "cat /otp/otrs/DatabaseBackup.sql | psql -U {{ db_user }} {{ db_user }}"
+    - name:                  "Restore database from backup"
+      mysql_db:
+        name:                "otrs_db"
+        state:               import
+        target:              "/opt/otrs/DatabaseBackup.sql"
 
     # - name:                Run queries from SQL script
     #   postgresql_query:
@@ -212,7 +215,8 @@
     - name:                  "delete old otrs cache"
       command:               'su - otrs -c "/opt/otrs/bin/otrs.Console.pl Maint::Cache::Delete"'
 
-##INSERT Maint::Config::Rebuild here!
+    - name:                  "Rebuild OTRS"
+      command:               'su - otrs -c "/opt/otrs/bin/otrs.Console.pl Maint::Config::Rebuild"'
 
     - name:                  Restart mariadb
       service:
