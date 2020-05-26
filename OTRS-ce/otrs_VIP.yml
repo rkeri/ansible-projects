@@ -128,6 +128,12 @@
           - perl-LWP-UserAgent
           - perl-Net-DNS
           - perl-Net-LDAP
+          - perl-Pod-POM
+          - perl-Image-Base
+          - perl-Image-Xpm
+          - perl-Image-Xbm
+          - perl-Image-Info
+          - perl-AppConfig
           - perl-Template-Toolkit
           - perl-XML-LibXML
           - perl-XML-LibXSLT
