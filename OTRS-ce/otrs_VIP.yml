@@ -149,7 +149,7 @@
           - perl-NTLM
           - perl-Mail-IMAPClient
           - perl-JSON-XS
-          - perl-ENCODE-HanExtra
+          - perl-Encode-HanExtra
           - perl-DBD-Pg
           - perl-Crypt-Eksblowfish
           - perl-core
