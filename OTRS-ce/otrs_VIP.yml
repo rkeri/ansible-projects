@@ -213,7 +213,8 @@
         login_host:          localhost
         login_password:      "{{ mariadb_root_pw }}"
         state:               import
-        target:              "/tmp/DatabaseBackup.sql.gz"
+        config_file:         no
+        target:              /tmp/DatabaseBackup.sql.gz
 
     # - name:                Run queries from SQL script
     #   postgresql_query:
