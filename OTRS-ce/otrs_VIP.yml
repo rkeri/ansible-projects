@@ -208,8 +208,8 @@
 
     - name:                  "Restore database from backup"
       mysql_db:
-        name:                "otrs_db"
         state:               import
+        name:                all
         target:              "files/DatabaseBackup.sql.gz"
 
     # - name:                Run queries from SQL script
