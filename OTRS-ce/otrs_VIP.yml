@@ -143,15 +143,15 @@
           # - perl-AppConfig
           # - perl-Template-Toolkit
           - perl-XML-LibXML
-          - perl-XML-LibXSLT
+          - http://mirror.centos.org/centos/7/os/x86_64/Packages/perl-XML-LibXSLT-1.80-4.el7.x86_64.rpm
           - perl-XML-Parser
-          - perl-YAML-XS
-          - perl-Authen-NTLM
+          - perl-YAML-LibYAML
+          - perl-NTLM
           - perl-Mail-IMAPClient
           - perl-JSON-XS
           - perl-ENCODE-HanExtra
           - perl-DBD-Pg
-          - perl-Crypt-Eksblowfish-Bcrypt
+          - perl-Crypt-Eksblowfish
           - perl-core
           - procmail
 
