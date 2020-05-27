@@ -203,11 +203,8 @@
 ##DB DUMP PART##
     - name:                  Copy database dump file
       copy:
-        src:                 "files/DatabaseBackup.sql.gz"
+        src:                 "files/DatabaseBackup.sql"
         dest:                "/tmp"
-
-    - name:                  Unzip Dump
-      command:               "gunzip /tmp/DatabaseBackup.sql.gz"
 
     # - name:                  "Import Dump"
       # command:               'mysql -u {{ db_user }} -p {{ db_user_pw }} {{ db_name }} < /tmp/DatabaseBackup.sql'
