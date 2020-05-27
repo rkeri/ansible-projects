@@ -204,17 +204,21 @@
     - name:                  Copy database dump file
       copy:
         src:                 "files/DatabaseBackup.sql.gz"
-        dest:                /tmp
+        dest:                "/tmp"
 
-    - name:                  "Restore database from backup"
-      mysql_db:
-        name:                "{{ db_name }}"
-        login_user:          "{{ db_user }}"
-        login_host:          localhost
-        login_password:      "{{ db_user_pw }}"
-        config_file:         no
-        state:               import
-        target:              /tmp/DatabaseBackup.sql.gz
+    - name:                  "import dump"
+      command:               'zcat /tmp/DatabaseBackup.sql.gz | mysql -u {{ db_user }} -p {{ db_user_pw }} {{ db_name }}'
+
+##Broken pipe errorba fut, nincs megoldás apparently##
+    # - name:                  "Restore database from backup"
+    #   mysql_db:
+    #     name:                "{{ db_name }}"
+    #     login_user:          "{{ db_user }}"
+    #     login_host:          localhost
+    #     login_password:      "{{ db_user_pw }}"
+    #     config_file:         no
+    #     state:               import
+    #     target:              /tmp/DatabaseBackup.sql.gz
 
     # - name:                Run queries from SQL script
     #   postgresql_query:
@@ -223,16 +227,16 @@
     #     positional_args:
     #     - 1
 
+    - name:                  Restart mariadb
+      service:
+        name:                mariadb
+        state:               restarted
+
     - name:                  "delete old otrs cache"
       command:               'su - otrs -c "/opt/otrs/bin/otrs.Console.pl Maint::Cache::Delete"'
 
     - name:                  "Rebuild OTRS"
       command:               'su - otrs -c "/opt/otrs/bin/otrs.Console.pl Maint::Config::Rebuild"'
-
-    - name:                  Restart mariadb
-      service:
-        name:                mariadb
-        state:               restarted
 
     - name:                  "reStart httpd"
       systemd:
