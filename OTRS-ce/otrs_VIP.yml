@@ -12,14 +12,17 @@
         name:                '*'
         state:               latest
 
-    - name:                  "Install prereq (epel, wget)"
-      yum:
-        name:                "{{ prereq }}"
-        state:               latest
-      vars:
-        prereq:
-         # - epel-release
-         - wget
+    - name:                  "Add epel repolist"
+      yum_repository:
+        name:                epel
+        description:         epel yum repo
+        baseurl:             "https://download.fedoraproject.org/pub/epel/$releasever/$basearch/"
+
+    - name:                  "Add centos repolist"
+      yum_repository:
+        name:                centos7
+        description:         centos7 yum repo
+        baseurl:             "http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os&infra="
 
     - name:                  "Installing httpd"
       yum:                   name=httpd state=latest
@@ -155,6 +158,12 @@
           - perl-core
           - procmail
 
+    - name:                  "Install perl modules 2/2"
+      yum:
+        name:                "{{ perl2 }}"
+        state:               latest
+      vars:
+        perl1:
       # command:             'yum install bash-completion "perl(Archive::Zip)" "perl(Crypt::SSLeay)" "perl(DateTime)" "perl(IO::Socket::SSL)" "perl(LWP::UserAgent)" "perl(Net::DNS)" "perl(Net::LDAP)" "perl(Template)" "perl(XML::LibXML)" "perl(XML::LibXSLT)" "perl(XML::Parser)" "perl(YAML::XS)" "perl(YAML::XS)" "perl(Authen::NTLM)" "perl(Mail::IMAPClient)" "perl(JSON::XS)" "perl(Encode::HanExtra)"  "perl(DBD::Pg)" "perl(Crypt::Eksblowfish::Bcrypt)" perl-core procmail -y'
 
     # - name:                "Download & install OTRS distro"
