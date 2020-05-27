@@ -49,6 +49,11 @@
          - mariadb-server
          - MySQL-python
 
+    - name:                  Add packet/query/logfile size to my.cnf
+      template:
+        src:                 "files/my.cnf.j2"
+        dest:                "/etc/my.cnf"
+
     - name:                  Start MariaDB
       service:               name=mariadb state=started
 
@@ -109,11 +114,6 @@
     #     backup:              yes
     #     content:             '{{ mysqld_content }}'
     #     state:               present
-
-    - name:                  Add packet/query/logfile size to my.cnf
-      template:
-        src:                 "files/my.cnf.j2"
-        dest:                "/etc/my.cnf"
 
     - name:                  Add mariaDB to system startup
       systemd:
