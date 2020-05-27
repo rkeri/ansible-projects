@@ -202,12 +202,15 @@
         dest:                "/opt/otrs"
 ##DB DUMP PART##
     - name:                  Copy database dump file
-      unarchive:
+      copy:
         src:                 "files/DatabaseBackup.sql.gz"
         dest:                "/tmp"
 
-    - name:                  "Import dump"
-      command:               'mysql -u {{ db_user }} -p {{ db_user_pw }} {{ db_name }} < DatabaseBackup.sql'
+    - name:                  Unzip Dump
+      command:               "gunzip /tmp/DatabaseBackup.sql.gz"
+
+    - name:                  "Import Dump"
+      command:               'mysql -u {{ db_user }} -p {{ db_user_pw }} {{ db_name }} < /tmp/DatabaseBackup.sql'
 
 ##Broken pipe errorba fut, nincs megoldás apparently##
     # - name:                  "Restore database from backup"
