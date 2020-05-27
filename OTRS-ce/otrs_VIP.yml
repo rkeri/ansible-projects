@@ -145,7 +145,8 @@
           - perl-ENCODE-HanExtra
           - perl-DBD-Pg
           - perl-Crypt-Eksblowfish-Bcrypt
-          - perl-core procmail
+          - perl-core 
+          - procmail
 
       # command:             'yum install bash-completion "perl(Archive::Zip)" "perl(Crypt::SSLeay)" "perl(DateTime)" "perl(IO::Socket::SSL)" "perl(LWP::UserAgent)" "perl(Net::DNS)" "perl(Net::LDAP)" "perl(Template)" "perl(XML::LibXML)" "perl(XML::LibXSLT)" "perl(XML::Parser)" "perl(YAML::XS)" "perl(YAML::XS)" "perl(Authen::NTLM)" "perl(Mail::IMAPClient)" "perl(JSON::XS)" "perl(Encode::HanExtra)"  "perl(DBD::Pg)" "perl(Crypt::Eksblowfish::Bcrypt)" perl-core procmail -y'
 
