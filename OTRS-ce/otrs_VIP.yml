@@ -100,15 +100,20 @@
     #     login_password:    "{{ mariadb_root_pw }}"
     #     state:             present
 
-    - set_fact:
-        mysqld_content:      "{{ lookup('template', 'files/my.cnf.j2') }}"
+    # - set_fact:
+    #     mysqld_content:      "{{ lookup('template', 'files/my.cnf.j2') }}"
+    #
+    # - name:                  Add packet/query/logfile size to my.cnf
+    #   blockinfile:
+    #     path:                "/etc/my.cnf"
+    #     backup:              yes
+    #     content:             '{{ mysqld_content }}'
+    #     state:               present
 
     - name:                  Add packet/query/logfile size to my.cnf
-      blockinfile:
-        path:                "/etc/my.cnf"
-        backup:              yes
-        content:             '{{ mysqld_content }}'
-        state:               present
+      template:
+        src:                 "files/my.cnf.j2"
+        dest:                "/etc/my.cnf"
 
     - name:                  Add mariaDB to system startup
       systemd:
@@ -206,8 +211,8 @@
         src:                 "files/DatabaseBackup.sql"
         dest:                "/tmp"
 
-    # - name:                  "Import Dump"
-      # command:               'mysql -u {{ db_user }} -p {{ db_user_pw }} {{ db_name }} < /tmp/DatabaseBackup.sql'
+    # - name:                "Import Dump"
+      # command:             'mysql -u {{ db_user }} -p {{ db_user_pw }} {{ db_name }} < /tmp/DatabaseBackup.sql'
 
     - name:                  "Restore database from backup"
       mysql_db:
