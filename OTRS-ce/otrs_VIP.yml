@@ -13,12 +13,6 @@
         description:         epel yum repo
         baseurl:             "https://download.fedoraproject.org/pub/epel/$releasever/$basearch/"
 
-    - name:                  "Add centos repolist"
-      yum_repository:
-        name:                centos7
-        description:         centos7 yum repo
-        baseurl:             "http://mirror.centos.org/centos/7/os/x86_64/"
-
     - name:                  "Installing httpd"
       yum:                   name=httpd state=latest
 
