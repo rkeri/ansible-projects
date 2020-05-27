@@ -200,11 +200,11 @@
       unarchive:
         src:                 "files/Application.tar.gz"
         dest:                "/opt/otrs"
-#DB IMPORT PART
-    # - name:                  Unpack otrs db backup
-    #   unarchive:
-    #     src:                 "files/DatabaseBackup.sql.gz"
-    #     dest:                "/opt/otrs"
+##DB DUMP PART##
+    - name:                  Copy database dump file
+      copy:
+        src:                 "files/DatabaseBackup.sql.gz"
+        dest:                /tmp
 
     - name:                  "Restore database from backup"
       mysql_db:
@@ -212,7 +212,7 @@
         login_password:      "{{ mariadb_root_pw }}"
         state:               import
         name:                all
-        target:              "files/DatabaseBackup.sql.gz"
+        target:              "/tmp/DatabaseBackup.sql.gz"
 
     # - name:                Run queries from SQL script
     #   postgresql_query:
