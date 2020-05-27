@@ -115,12 +115,12 @@
         name:                mariadb
         state:               restarted
 
-    - name:                  "Install perl modules"
+    - name:                  "Install perl modules 1/2"
       yum:
-        name:                "{{ perls }}"
+        name:                "{{ perl1 }}"
         state:               latest
       vars:
-        perls:
+        perl1:
           - perl-Archive-Zip
           - perl-Crypt-SSLeay
           - perl-DateTime
@@ -128,13 +128,20 @@
           - perl-libwww-perl
           - perl-Net-DNS
           - perl-LDAP
+          - http://mirror.centos.org/centos/7/os/x86_64/Packages/perl-Pod-POM-0.27-10.el7.noarch.rpm
+          - http://mirror.centos.org/centos/7/os/x86_64/Packages/perl-Image-Base-1.07-23.el7.noarch.rpm
+          - http://mirror.centos.org/centos/7/os/x86_64/Packages/perl-Image-Xpm-1.09-21.el7.noarch.rpm
+          - http://mirror.centos.org/centos/7/os/x86_64/Packages/perl-Image-Xbm-1.08-21.el7.noarch.rpm
+          - http://mirror.centos.org/centos/7/os/x86_64/Packages/perl-Image-Info-1.33-3.el7.noarch.rpm
+          - http://mirror.centos.org/centos/7/os/x86_64/Packages/perl-AppConfig-1.66-20.el7.noarch.rpm
+          - http://mirror.centos.org/centos/7/os/x86_64/Packages/perl-Template-Toolkit-2.24-5.el7.x86_64.rpm
           # - perl-Pod-POM
           # - perl-Image-Base
           # - perl-Image-Xpm
           # - perl-Image-Xbm
           # - perl-Image-Info
           # - perl-AppConfig
-          - perl-Template-Toolkit
+          # - perl-Template-Toolkit
           - perl-XML-LibXML
           - perl-XML-LibXSLT
           - perl-XML-Parser
