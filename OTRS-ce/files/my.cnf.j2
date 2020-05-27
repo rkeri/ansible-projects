@@ -4,10 +4,9 @@ socket=/var/lib/mysql/mysql.sock
 
 connect_timeout=43200
 wait_timeout=28800
-max_allowed_packet=1024M
+max_allowed_packet=512M
 query_cache_size=36M
 innodb_log_file_size=256M
-net_buffer_length=512M
 
 # Disabling symbolic-links is recommended to prevent assorted security risks
 symbolic-links=0
@@ -25,3 +24,10 @@ pid-file=/var/run/mariadb/mariadb.pid
 # include all files from the config directory
 #
 !includedir /etc/my.cnf.d
+
+###ADDED BY BLOCKINFILE###
+#max_allowed_packet=30M
+#max_allowed_packet=100M
+#query_cache_size=36M
+#innodb_log_file_size=256M
+###END OF ADDED LINES###
