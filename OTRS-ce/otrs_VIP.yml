@@ -7,11 +7,6 @@
 
   tasks:
 
-    - name:                  "upgrade existing packages"
-      yum:
-        name:                '*'
-        state:               latest
-
     - name:                  "Add epel repolist"
       yum_repository:
         name:                epel
