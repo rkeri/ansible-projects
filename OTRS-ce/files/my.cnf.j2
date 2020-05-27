@@ -9,12 +9,6 @@ symbolic-links=0
 # customize your systemd unit file for mariadb according to the
 # instructions in http://fedoraproject.org/wiki/Systemd
 
-connect_timeout=43200
-wait_timeout=28800
-max_allowed_packet=30M
-query_cache_size=36M
-innodb_log_file_size=256M
-
 [mysqld_safe]
 log-error=/var/log/mariadb/mariadb.log
 pid-file=/var/run/mariadb/mariadb.pid
