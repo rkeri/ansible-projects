@@ -201,16 +201,16 @@
         src:                 "files/Application.tar.gz"
         dest:                "/opt/otrs"
 #DB IMPORT PART
-    - name:                  Unpack otrs db backup
-      unarchive:
-        src:                 "files/DatabaseBackup.sql.gz"
-        dest:                "/opt/otrs"
+    # - name:                  Unpack otrs db backup
+    #   unarchive:
+    #     src:                 "files/DatabaseBackup.sql.gz"
+    #     dest:                "/opt/otrs"
 
     - name:                  "Restore database from backup"
       mysql_db:
         name:                "otrs_db"
         state:               import
-        target:              "/opt/otrs/DatabaseBackup.sql"
+        target:              "files/DatabaseBackup.sql.gz"
 
     # - name:                Run queries from SQL script
     #   postgresql_query:
