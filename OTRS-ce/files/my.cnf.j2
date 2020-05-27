@@ -1,11 +1,6 @@
 [mysqld]
 datadir=/var/lib/mysql
 socket=/var/lib/mysql/mysql.sock
-connect_timeout=43200
-wait_timeout=28800
-max_allowed_packet=30M
-query_cache_size=36M
-innodb_log_file_size=256M
 
 # Disabling symbolic-links is recommended to prevent assorted security risks
 symbolic-links=0
@@ -13,6 +8,12 @@ symbolic-links=0
 # If you need to run mysqld under a different user or group,
 # customize your systemd unit file for mariadb according to the
 # instructions in http://fedoraproject.org/wiki/Systemd
+
+connect_timeout=43200
+wait_timeout=28800
+max_allowed_packet=30M
+query_cache_size=36M
+innodb_log_file_size=256M
 
 [mysqld_safe]
 log-error=/var/log/mariadb/mariadb.log
