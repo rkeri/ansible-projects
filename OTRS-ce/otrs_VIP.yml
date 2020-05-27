@@ -55,9 +55,7 @@
         dest:                "/etc/my.cnf"
 
     - name:                  Remove old logfile
-      file:
-        path:                "/var/lib/mysql/ib_logfile*"
-        state:               absent
+      command:               "rm -f /var/lib/mysql/ib_logfile*"
 
     - name:                  Start MariaDB
       service:               name=mariadb state=started
