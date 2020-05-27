@@ -209,19 +209,18 @@
     - name:                  Unzip Dump
       command:               "gunzip /tmp/DatabaseBackup.sql.gz"
 
-    - name:                  "Import Dump"
-      command:               'mysql -u {{ db_user }} -p {{ db_user_pw }} {{ db_name }} < /tmp/DatabaseBackup.sql'
+    # - name:                  "Import Dump"
+      # command:               'mysql -u {{ db_user }} -p {{ db_user_pw }} {{ db_name }} < /tmp/DatabaseBackup.sql'
 
-##Broken pipe errorba fut, nincs megoldás apparently##
-    # - name:                  "Restore database from backup"
-    #   mysql_db:
-    #     name:                "{{ db_name }}"
-    #     login_user:          "{{ db_user }}"
-    #     login_host:          localhost
-    #     login_password:      "{{ db_user_pw }}"
-    #     config_file:         no
-    #     state:               import
-    #     target:              /tmp/DatabaseBackup.sql.gz
+    - name:                  "Restore database from backup"
+      mysql_db:
+        name:                "{{ db_name }}"
+        login_user:          "{{ db_user }}"
+        login_host:          localhost
+        login_password:      "{{ db_user_pw }}"
+        config_file:         no
+        state:               import
+        target:              /tmp/DatabaseBackup.sql
 
     # - name:                Run queries from SQL script
     #   postgresql_query:
