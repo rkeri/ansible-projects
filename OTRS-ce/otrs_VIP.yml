@@ -125,7 +125,7 @@
           - perl-Crypt-SSLeay
           - perl-DateTime
           - perl-IO-Socket-SSL
-          - perl-libwww
+          - perl-libwww-perl
           - perl-Net-DNS
           - perl-Net-LDAP
           - perl-Pod-POM
