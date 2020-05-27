@@ -208,10 +208,11 @@
 
     - name:                  "Restore database from backup"
       mysql_db:
+        name:                "{{ db_name }}"
         login_user:          root
+        login_host:          localhost
         login_password:      "{{ mariadb_root_pw }}"
         state:               import
-        name:                all
         target:              "/tmp/DatabaseBackup.sql.gz"
 
     # - name:                Run queries from SQL script
