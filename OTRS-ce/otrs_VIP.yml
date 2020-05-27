@@ -13,6 +13,15 @@
         description:         epel yum repo
         baseurl:             "https://download.fedoraproject.org/pub/epel/$releasever/$basearch/"
 
+    - name:                  "Add centos repolist"
+      yum_repository:
+        name:                centos7
+        description:         centos7 yum repo
+        baseurl:             "http://ftp.heanet.ie/pub/centos/7/os/x86_64/"
+        enabled:             yes
+        gpgcheck:            yes
+        gpgkey:              "http://ftp.heanet.ie/pub/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7"
+
     - name:                  "Installing httpd"
       yum:                   name=httpd state=latest
 
@@ -147,6 +156,12 @@
         # perl(DateTime) is needed by otrs-6.0.28-01.noarch
         # perl(Template) is needed by otrs-6.0.28-01.noarch
         # perl(XML::LibXSLT) is needed by otrs-6.0.28-01.noarch
+
+    - name:                  "Remove centos repolist"
+      yum_repository:
+        name:                centos7
+        state:               absent
+      notify:                yum-clean-metadata
 
     - name:                  "Download OTRS distro"
       get_url:
