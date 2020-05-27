@@ -207,7 +207,7 @@
         dest:                "/tmp"
 
     - name:                  "import dump"
-      command:               'zcat /tmp/DatabaseBackup.sql.gz | mysql -u {{ db_user }} -p {{ db_user_pw }} {{ db_name }}'
+      command:               'gunzip -c /tmp/DatabaseBackup.sql.gz | mysql -u {{ db_user }} -p {{ db_user_pw }} {{ db_name }}'
 
 ##Broken pipe errorba fut, nincs megoldás apparently##
     # - name:                  "Restore database from backup"
