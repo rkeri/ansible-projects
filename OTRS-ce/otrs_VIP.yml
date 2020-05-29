@@ -27,8 +27,13 @@
       args:
         warn:                no
 
-    - name:                  "Installing httpd"
+    - name:                  "Install httpd"
       yum:                   name=httpd state=latest
+
+    - name:                  Copy index test page
+      template:
+        src:                 "files/index.html.j2"
+        dest:                "/var/www/html/index.html"
 
     - name:                  "Add httpd to startup"
       systemd:
