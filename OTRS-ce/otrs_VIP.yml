@@ -219,10 +219,10 @@
 
     - name:                  "Restore database from backup"
       mysql_db:
-        name:                "{{ db_name }}"
-        login_user:          "{{ db_user }}"
+        name:                {{ db_name }}
+        login_user:          {{ db_user }}
         login_host:          localhost
-        login_password:      "{{ db_user_pw }}"
+        login_password:      {{ db_user_pw }}
         config_file:         no
         state:               import
         target:              /tmp/DatabaseBackup.sql
