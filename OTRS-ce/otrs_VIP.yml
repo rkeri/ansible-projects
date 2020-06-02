@@ -7,12 +7,6 @@
 
   tasks:
 
-    - name:                  "Add epel repolist"
-      yum_repository:
-        name:                epel
-        description:         epel yum repo
-        baseurl:             "https://download.fedoraproject.org/pub/epel/$releasever/$basearch/"
-
     - name:                  "Add centos repolist"
       yum_repository:
         name:                centos7
