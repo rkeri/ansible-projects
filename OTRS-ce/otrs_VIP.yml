@@ -242,6 +242,11 @@
     - name:                  "delete old otrs cache"
       command:               'su - otrs -c "/opt/otrs/bin/otrs.Console.pl Maint::Cache::Delete"'
 
+    - name:                  "Create fetchmail file"
+      file:
+        path:                /usr/bin/fetchmail
+        state:               touch
+
     - name:                  "Rebuild OTRS"
       command:               'su - otrs -c "/opt/otrs/bin/otrs.Console.pl Maint::Config::Rebuild"'
 
