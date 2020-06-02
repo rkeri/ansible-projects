@@ -57,8 +57,8 @@
     - name:                  Remove old logfile
       command:               "rm -f /var/lib/mysql/ib_logfile*"
 
-    - name:                  Start MariaDB
-      service:               name=mariadb state=started
+    - name:                  Restart MariaDB
+      service:               name=mariadb state=restarted
 
     # - name:                Set bind address for remote access
     #   template:
