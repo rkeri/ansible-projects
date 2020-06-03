@@ -1,0 +1,67 @@
+---
+- hosts:                 127.0.0.1
+  connection:            local
+  gather_facts:          true
+  become:                true
+  vars_files:
+    - vars/dbdefault.yml
+
+  tasks:
+
+    - name:              "stop OTRS cronjob"
+      command:           'su - otrs -c "/opt/otrs/bin/Cron.sh stop"'
+
+    - name:              "stop OTRS daemon"
+      command:           'su - otrs -c "/opt/otrs/bin/otrs.Daemon.pl stop"'
+
+    - name:              "stop HTTPD"
+      systemd:
+        state:           stopped
+        name:            httpd
+
+    - name:              Restore old config provided backup
+      unarchive:
+        src:             "files/Config.tar.gz"
+        dest:            "/opt/otrs"
+
+    - name:              Restore application data from provided backup
+      unarchive:
+        src:             "files/Application.tar.gz"
+        dest:            "/opt/otrs"
+
+    - name:              Copy database dump file
+      copy:
+        src:             "files/DatabaseBackup.sql"
+        dest:            "/tmp"
+
+    - name:              "Restore database from backup"
+      mysql_db:
+        name:            "{{ db_name }}"
+        login_user:      root
+        login_host:      localhost
+        login_password:  "{{ mariadb_root_pw }}"
+        config_file:     no
+        state:           import
+        target:          /tmp/DatabaseBackup.sql
+
+    - name:              Restart mariadb
+      service:
+        name:            mariadb
+        state:           restarted
+
+    - name:              "delete old otrs cache"
+      command:           'su - otrs -c "/opt/otrs/bin/otrs.Console.pl Maint::Cache::Delete"'
+
+    - name:              "Rebuild OTRS"
+      command:           'su - otrs -c "/opt/otrs/bin/otrs.Console.pl Maint::Config::Rebuild"'
+
+    - name:              "start httpd"
+      systemd:
+        state:           started
+        name:            httpd
+
+    - name:              "start OTRS daemon"
+      command:           'su - otrs -c "/opt/otrs/bin/otrs.Daemon.pl start"'
+
+    - name:              "activate OTRS cronjob"
+      command:           'su - otrs -c "/opt/otrs/bin/Cron.sh start"'
